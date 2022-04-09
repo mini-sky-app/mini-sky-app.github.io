@@ -1,0 +1,60 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-color: black;
+}
+
+
+#center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    width: 60vmin;
+    height: 60vmin;
+    max-width: 800px;
+    max-height: 800px;
+    border-radius: 50%;
+    background-color: white;
+    overflow: hidden;
+    background-color: black;
+}
+
+#center * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#ocean {
+    width: 60vmin;
+    height: 30vmin;
+    max-width: 800px;
+    max-height: 800px;
+    top: 75%;
+    /* background-color: #0080ff; */
+    background: linear-gradient(to bottom, #0080ff, #0020df);
+    z-index: 1;
+}
+
+#sky {
+    width: 60vmin;
+    height: 30vmin;
+    max-width: 800px;
+    max-height: 800px;
+    top: 25%;
+    /* background-color: #b0dcff; */
+    background: linear-gradient(to top, #b0dcff, #0040af);
+}
+
+#sun {
+    width: 50px;
+    height: 50px;
+    background-color: #fff7d0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-40deg) translateY(-22vmin);
+    box-shadow: 0 0 80px 40px #ffe7c0;
+}
