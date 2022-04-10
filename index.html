@@ -6,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css">
     <title>Mini Sky</title>
+    <script defer src="sky.js"></script>
   </head>
   <body>
     <div id="center">
-        <div id="sky"></div>
-        <div id="ocean"></div>
+        <div class="sky" id="sky-day"></div>
+        <div class="sky" id="sky-night"></div>
         <div id="sun"></div>
+        <div class="ocean" id="ocean-day"></div>
+        <div class="ocean" id="ocean-night"></div>
+        <div id="glow"></div>
+        <h1 id="clock">00:00</h1>
     </div>
   </body>
 </html>
