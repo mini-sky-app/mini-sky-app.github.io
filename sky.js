@@ -7,7 +7,7 @@ let clock = document.querySelector('#clock');
 function setSunAngle(angle){
     sun.style.transform = `translate(-50%, -50%) rotate(${angle}rad) translateY(-22vmin)`;
     setDayNightTransition(1 - (Math.cos(angle)*2/3 + 1/3));
-    setGlow(Math.pow(Math.sin(angle),2)*2 - 1)
+    setGlow(1-Math.cos(2 * angle)-1);
 }
 
 function setDayNightTransition(opacity){
