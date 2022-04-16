@@ -19,54 +19,75 @@ function setGlow(opacity) {
   glow.style.opacity = opacity;
 }
 
+let cloudDensity = 0.2;
+let cloudSpeed = 0.1;
+function setClouds(density, speed) {
+  cloudDensity = density;
+  cloudSpeed = speed;
+}
+
 //function add cloud adds div with class 'cloud', starts at left 100%, moves left with transition. vertical position is random.
-function addCloud(speed) {
+function addCloud(speed, location) {
   speed = speed * (Math.random() * 0.5 + 0.5);
   let cloud = document.createElement("div");
   cloud.classList.add("cloud");
-  cloud.style.left = "140%";
+  cloud.style.left = `${location}%`;
   cloud.style.width = `${Math.random() * 50 + 10}%`;
   cloud.style.top = `${Math.random() * 50}%`;
-  cloud.style.transition = `left ${speed}s linear`;
   document.querySelector("#center").appendChild(cloud);
 
-  requestAnimationFrame(() => {
-    cloud.style.left = "-100%";
-  });
+  let cloudMover = setInterval(()=>{
+        cloud.style.left = `${location-= speed / 5}%`;
+        if (location < -200) {
+            cloud.remove();
+            clearInterval(cloudMover);
+        }
+    }, 5);
 
-  setTimeout(() => {
-    cloud.remove();
-  }, speed * 1000 * 2);
 }
+
+//based on speed, add clouds instantly into the sky at the beginning
+function spawnClouds() {
+    //time taken for 1 cloud to move from left to right divided by cloud spawn rate
+    //400 / cloudSpeed frames
+    for (let i = 0; i < 50 ; i++) {
+        if(Math.random() < cloudDensity) {
+            addCloud(cloudSpeed, Math.random() * 400 - 200);
+        }
+    }
+}
+
+spawnClouds();
+
+
+setInterval(() => {
+  if (Math.random() < cloudDensity * cloudSpeed / 10) {
+    addCloud(cloudSpeed, 200);
+  }
+}, 20);
+
 
 function setMist(opacity) {
   document.querySelector("#mist").style.opacity = opacity;
 }
 
-let cloudDensity = 0.5;
-let cloudSpeed = 20;
-function setConditions(density, speed) {
-  setMist(density);
-  cloudDensity = density;
-  cloudSpeed = speed;
-}
-
-setMist(cloudDensity);
-setInterval(() => {
-  if (Math.random() < cloudDensity) {
-    addCloud(cloudSpeed);
-  }
-}, 200);
-
-let angle = 0;
-setInterval(() => {
-  angle += 0.004;
+function calculateSunAngle() {
+  let angle = 0;
+  let now = new Date();
+  let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let timeSinceStart = now - startOfDay;
+  angle = timeSinceStart / (1000 * 60 * 60 * 24) * 2 * Math.PI - Math.PI;
   setSunAngle(angle);
-});
+}
+calculateSunAngle();
+
+setInterval(() => {
+    calculateSunAngle();
+}, 1000);
 
 function setClock() {
   let date = new Date();
-  let hours = date.getHours();
+  let hours = date.getHours() % 12 || 12;
   let minutes = date.getMinutes();
   if (minutes < 10) minutes = "0" + minutes;
   clock.innerHTML = `${hours}:${minutes}`;
