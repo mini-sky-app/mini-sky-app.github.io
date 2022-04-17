@@ -70,6 +70,7 @@ html, body {
     background-color: rgba(100,100,120,0.5);
     backdrop-filter: saturate(0.5);
     -webkit-backdrop-filter: saturate(0.5);
+    opacity: 0;
 }
 
 #sun {
