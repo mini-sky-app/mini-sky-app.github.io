@@ -68,6 +68,41 @@ function setMist(opacity) {
   document.querySelector("#mist").style.opacity = opacity;
 }
 
+precipitation = 0;
+function setPrecipitation(p) {
+  precipitation = p;
+}
+
+function addRain(){
+  let rain = document.createElement("div");
+  rain.classList.add("rain");
+  let top = -100;
+  let left = Math.random() * 150;
+  rain.style.height = `${Math.random() * 30 + 5}%`;
+  rain.style.left = `${left}%`;
+  rain.style.top = `${top}%`;
+  document.querySelector("#center").appendChild(rain);
+
+  let rainMover = setInterval(()=>{
+    rain.style.top = `${top++}%`;
+    rain.style.left = `${left-=0.35}%`;
+    if(top > 50 && Math.random() < 0.1) {
+      rain.remove();
+      clearInterval(rainMover);
+    }
+    if (top > 200) {
+      rain.remove();
+      clearInterval(rainMover);
+    }
+  });
+}
+
+setInterval(() => {
+  if (Math.random() < precipitation) {
+    addRain();
+  }
+}, 20);
+
 let sunrise = 6 * 60 * 60 * 1000;
 let sunset = 18 * 60 * 60 * 1000;
 
@@ -80,13 +115,13 @@ function setSunTimes(r, s) {
 }
 
 function calculateSunAngle() {
-    let angle = 0;
-    let now = new Date();
-    let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    let time = now - startOfDay;
-    angle = (time - sunrise) / (sunset - sunrise) * Math.PI - Math.PI / 2;
+  let angle = 0;
+  let now = new Date();
+  let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let time = now - startOfDay;
+  angle = (time - sunrise) / (sunset - sunrise) * Math.PI - Math.PI / 2;
 
-    setSunAngle(angle);
+  setSunAngle(angle);
 }
 calculateSunAngle();
 

@@ -11,7 +11,7 @@ function getWeatherData() {
         fetch(API_LINK + API_KEY)
           .then((response) => response.json())
           .then((weatherData) => {
-            // console.log(weatherData);
+            console.log(weatherData);
             const weatherDataObj = {};
             const weekWeatherData = {};
             const todayDate = new Date(
@@ -31,6 +31,8 @@ function getWeatherData() {
             weatherDataObj.todayHumidity = weatherData.current.humidity;
             weatherDataObj.todayClouds = weatherData.current.clouds;
             weatherDataObj.todayVisibility = weatherData.current.visibility;
+            weatherDataObj.todayPrecipitation =
+              (weatherData.current?.rain?.["1h"] ?? 0) / 3;
 
             weatherData.daily.forEach((eachDay) => {
               const dayName = new Date(eachDay.dt * 1000).toLocaleDateString(
@@ -51,7 +53,7 @@ function getWeatherData() {
   });
 }
 
-function displayWeatherData() {
+function setWeatherData() {
   getWeatherData().then((weatherData) => {
     setClouds(
       weatherData.todayClouds / 100,
@@ -60,9 +62,11 @@ function displayWeatherData() {
     spawnClouds();
     setSunTimes(weatherData.todaySunrise, weatherData.todaySunset);
     setMist(1 - weatherData.todayVisibility / 10000);
+    setPrecipitation(weatherData.todayPrecipitation);
     const weekWeather = document.getElementById("week-weather");
     const weekWeatherDataKeys = Object.keys(weatherData.weekWeatherData);
-    console.log(weekWeatherDataKeys);
+
+    weekWeather.innerHTML = "";
     for (let eachDay = 1; eachDay < 5; eachDay++) {
       // exclude today
       let newSpan = document.createElement("span");
@@ -94,4 +98,8 @@ function displayWeatherData() {
   });
 }
 
-displayWeatherData();
+setWeatherData();
+
+setInterval(() => {
+  setWeatherData();
+}, 20 * 60 * 1000);
