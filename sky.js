@@ -24,6 +24,7 @@ let cloudSpeed = 0.1;
 function setClouds(density, speed) {
   cloudDensity = density;
   cloudSpeed = speed;
+  setMist(density);
 }
 
 //function add cloud adds div with class 'cloud', starts at left 100%, moves left with transition. vertical position is random.
