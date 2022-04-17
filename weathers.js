@@ -11,6 +11,7 @@ function getWeatherData() {
         fetch(API_LINK + API_KEY)
           .then((response) => response.json())
           .then((weatherData) => {
+            console.log(weatherData);
             const weatherDataObj = {}
             const weekWeatherData = {}
             const todayDate = new Date(
@@ -22,10 +23,13 @@ function getWeatherData() {
             ).toLocaleDateString("en", { weekday: "short" });
 
             weatherDataObj.todayDate = todayDate;
+            weatherDataObj.todaySunrise = weatherData.daily[0].sunrise;
+            weatherDataObj.todaySunset = weatherData.daily[0].sunset;
             weatherDataObj.todayTemp = weatherData.daily[0].temp.day.toFixed(0);
             weatherDataObj.todayWindSpeed =
               weatherData.daily[0].wind_speed + " mph";
             weatherDataObj.todayHumidity = weatherData.daily[0].humidity;
+            weatherDataObj.todayClouds = weatherData.daily[0].clouds;
 
             weatherData.daily.forEach((eachDay) => {
               const dayName = new Date(eachDay.dt * 1000).toLocaleDateString(
@@ -49,4 +53,7 @@ function getWeatherData() {
 getWeatherData().then((weatherData) => {
   //do things here
   console.log(weatherData);
+  setClouds(weatherData.todayClouds / 100, parseInt(weatherData.todayWindSpeed) / 30);
+  spawnClouds()  
+  setSunTimes(weatherData.todaySunrise, weatherData.todaySunset);
 })

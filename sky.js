@@ -57,9 +57,6 @@ function spawnClouds() {
     }
 }
 
-spawnClouds();
-
-
 setInterval(() => {
   if (Math.random() < cloudDensity * cloudSpeed / 10) {
     addCloud(cloudSpeed, 200);
@@ -71,13 +68,25 @@ function setMist(opacity) {
   document.querySelector("#mist").style.opacity = opacity;
 }
 
+let sunrise = 6 * 60 * 60 * 1000;
+let sunset = 18 * 60 * 60 * 1000;
+
+function setSunTimes(r, s) {
+    let now = new Date();
+    let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    sunrise = new Date(r * 1000) - startOfDay;
+    sunset = new Date(s * 1000) - startOfDay;
+    calculateSunAngle();
+}
+
 function calculateSunAngle() {
-  let angle = 0;
-  let now = new Date();
-  let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  let timeSinceStart = now - startOfDay;
-  angle = timeSinceStart / (1000 * 60 * 60 * 24) * 2 * Math.PI - Math.PI;
-  setSunAngle(angle);
+    let angle = 0;
+    let now = new Date();
+    let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let time = now - startOfDay;
+    angle = (time - sunrise) / (sunset - sunrise) * Math.PI - Math.PI / 2;
+
+    setSunAngle(angle);
 }
 calculateSunAngle();
 
