@@ -51,41 +51,47 @@ function getWeatherData() {
   });
 }
 
-getWeatherData().then((weatherData) => {
-  setClouds(
-    weatherData.todayClouds / 100,
-    parseInt(weatherData.todayWindSpeed) / 30
-  );
-  spawnClouds();
-  setSunTimes(weatherData.todaySunrise, weatherData.todaySunset);
-  setMist(1 - weatherData.todayVisibility / 10000);
-  const weekWeather = document.getElementById("week-weather");
-  const weekWeatherDataKeys = Object.keys(weatherData.weekWeatherData);
-  console.log(weekWeatherDataKeys);
-  for (let eachDay = 1; eachDay < 5; eachDay++) {
-    // exclude today
-    let newSpan = document.createElement("span");
-    let eachDayName = weekWeatherDataKeys[eachDay];
-    let weatherValue = `${eachDayName.toUpperCase()} ${
-      weatherData.weekWeatherData[eachDayName]
-    }°`;
+function displayWeatherData() {
+  getWeatherData().then((weatherData) => {
+    setClouds(
+      weatherData.todayClouds / 100,
+      parseInt(weatherData.todayWindSpeed) / 30
+    );
+    spawnClouds();
+    setSunTimes(weatherData.todaySunrise, weatherData.todaySunset);
+    setMist(1 - weatherData.todayVisibility / 10000);
+    const weekWeather = document.getElementById("week-weather");
+    const weekWeatherDataKeys = Object.keys(weatherData.weekWeatherData);
+    console.log(weekWeatherDataKeys);
+    for (let eachDay = 1; eachDay < 5; eachDay++) {
+      // exclude today
+      let newSpan = document.createElement("span");
+      let eachDayName = weekWeatherDataKeys[eachDay];
+      let weatherValue = `${eachDayName.toUpperCase()} ${
+        weatherData.weekWeatherData[eachDayName]
+      }°`;
 
-    if (eachDay !== 4) {
-      // if not the last day
-      weatherValue += " / ";
+      if (eachDay !== 4) {
+        // if not the last day
+        weatherValue += " / ";
+      }
+
+      newSpan.textContent = weatherValue;
+      weekWeather.appendChild(newSpan);
     }
+    document.querySelector(
+      "#date"
+    ).innerHTML = `DATE: ${weatherData.todayDate}`;
+    document.querySelector(
+      "#temperature"
+    ).innerHTML = `TEMPERATURE: ${weatherData.todayTemp}°C`;
+    document.querySelector(
+      "#wind-speed"
+    ).innerHTML = `WIND SPEED: ${weatherData.todayWindSpeed}`;
+    document.querySelector(
+      "#clouds"
+    ).innerHTML = `CLOUD COVER: ${weatherData.todayClouds}%`;
+  });
+}
 
-    newSpan.textContent = weatherValue;
-    weekWeather.appendChild(newSpan);
-  }
-  document.querySelector("#date").innerHTML = `DATE: ${weatherData.todayDate}`;
-  document.querySelector(
-    "#temperature"
-  ).innerHTML = `TEMPERATURE: ${weatherData.todayTemp}°C`;
-  document.querySelector(
-    "#wind-speed"
-  ).innerHTML = `WIND SPEED: ${weatherData.todayWindSpeed}`;
-  document.querySelector(
-    "#clouds"
-  ).innerHTML = `CLOUD COVER: ${weatherData.todayClouds}%`;
-});
+displayWeatherData();

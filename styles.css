@@ -122,6 +122,12 @@ body {
   line-height: 26px;
 }
 
+#weather-control {
+  position: relative;
+  top: 60px;
+  text-align: center;
+}
+
 /* responsiveness */
 @media screen and (max-width: 1000px) {
   .weather-data {
