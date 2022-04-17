@@ -147,3 +147,13 @@ body {
     font-size: 60px;
   }
 }
+
+@media screen and (max-height: 600px) {
+  #center {
+    width: 80vmin;
+    height: 80vmin;
+  }
+  #clock {
+    font-size: 60px;
+  }
+}
