@@ -16,23 +16,24 @@ function getWeatherData() {
             weatherData.daily[0].dt * 1000
           ).toLocaleDateString("en");
 
-          weatherDataObj.todayTemp = todayTemperature =
-            weatherData.daily[0].temp.day.toFixed(0);
+          weatherDataObj.todayWeekDay = new Date(
+            weatherData.daily[0].dt * 1000
+          ).toLocaleDateString("en", { weekday: "short" });
+
+          weatherDataObj.todayTemp = weatherData.daily[0].temp.day.toFixed(0);
           weatherDataObj.todayWindSpeed =
             weatherData.daily[0].wind_speed + " mph";
           weatherDataObj.todayHumidity = weatherData.daily[0].humidity;
 
           weatherData.daily.forEach((eachDay, index) => {
-            if (index > 0) {
-              const dayName = new Date(eachDay.dt * 1000).toLocaleDateString(
-                "en",
-                {
-                  weekday: "short",
-                }
-              );
-              const temperature = eachDay.temp.day.toFixed(0);
-              weekWeatherData[dayName] = temperature;
-            }
+            const dayName = new Date(eachDay.dt * 1000).toLocaleDateString(
+              "en",
+              {
+                weekday: "short",
+              }
+            );
+            const temperature = eachDay.temp.day.toFixed(0);
+            weekWeatherData[dayName] = temperature;
           });
         })
         .catch((error) => console.log("Fetch Error: " + error));
@@ -43,4 +44,13 @@ function getWeatherData() {
   return weatherDataObj; // returns all the weather information needed
 }
 
-document.addEventListener("DOMContentLoaded", () => getWeatherData());
+document.addEventListener("DOMContentLoaded", () => {
+  const weatherDataObj = getWeatherData();
+  weekWeather = document.getElementById("week-weather");
+  console.log(weatherDataObj);
+  for (let eachElement = 0; eachElement < 7; eachElement++) {
+    newSpan = document.createElement("span");
+    console.log(Object.keys(weatherDataObj["weekWeatherData"])); // help
+    weekWeather.appendChild(newSpan);
+  }
+});

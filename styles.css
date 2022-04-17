@@ -1,113 +1,149 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@1&family=Montserrat:wght@900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@1&family=Montserrat:wght@900&display=swap");
 
-html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    background-color: black;
-    font-family: 'IBM Plex Mono', monospace;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: black;
+  font-family: "IBM Plex Mono", monospace;
 }
 
-
 #center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 30px;
-    width: 60vmin;
-    height: 60vmin;
-    max-width: 800px;
-    max-height: 800px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  width: 60vmin;
+  height: 60vmin;
+  max-width: 800px;
+  max-height: 800px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: black;
 }
 
 #center * {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 #center .sky {
-    width: 100%;
-    height: 50%;
-    top: 25%;
+  width: 100%;
+  height: 50%;
+  top: 25%;
 }
 
 #sky-day {
-    background: linear-gradient(to top, #b0dcff, #3050af);
+  background: linear-gradient(to top, #b0dcff, #3050af);
 }
 
 #sky-night {
-    background: linear-gradient(to top, #00407f , #001020);
+  background: linear-gradient(to top, #00407f, #001020);
 }
 
 #center .ocean {
-    width: 100%;
-    height: 50%;
-    top: 75%;
+  width: 100%;
+  height: 50%;
+  top: 75%;
 }
 
 #ocean-day {
-    background: linear-gradient(to bottom, #4080df, #20408f);
+  background: linear-gradient(to bottom, #4080df, #20408f);
 }
 
 #ocean-night {
-    background: linear-gradient(to bottom, #003050, #001015);
+  background: linear-gradient(to bottom, #003050, #001015);
 }
 
 #glow {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, #FF855100, #FF8551c0 50%, #FF855170 50%, #FF855100 90%);
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #ff855100,
+    #ff8551c0 50%,
+    #ff855170 50%,
+    #ff855100 90%
+  );
 }
 
 #mist {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(100,100,120,0.5);
-    backdrop-filter: saturate(0.5);
-    -webkit-backdrop-filter: saturate(0.5);
-    opacity: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(100, 100, 120, 0.5);
+  backdrop-filter: saturate(0.5);
+  -webkit-backdrop-filter: saturate(0.5);
+  opacity: 0;
 }
 
 #sun {
-    width: 50px;
-    height: 50px;
-    background-color: #fff7d0;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) rotate(-0.5turn) translateY(-22vmin);
-    box-shadow: 0 0 100px 40px #ffe7c0;
+  width: 50px;
+  height: 50px;
+  background-color: #fff7d0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-0.5turn) translateY(-22vmin);
+  box-shadow: 0 0 100px 40px #ffe7c0;
 }
 
 #center .cloud {
-    width: 200px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
-    top: 30%;
-    left: 151px;
+  width: 200px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  top: 30%;
+  left: 151px;
 }
 
-
 #clock {
-    font-size: 100px;
-    color: rgba(255,255,255);
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    white-space: nowrap;
+  font-size: 100px;
+  color: rgba(255, 255, 255);
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  white-space: nowrap;
+}
+
+/* weathers informations */
+
+#weather-info {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+
+#week-weather {
+  margin-bottom: 20px;
+}
+
+.weather-data {
+  color: white;
+  line-height: 26px;
+}
+
+/* responsiveness */
+@media screen and (max-width: 1000px) {
+  .weather-data {
+    font-size: 14px;
+  }
+
+  #week-weather {
+    margin-bottom: 10px;
+  }
+
+  #weather-info {
+    bottom: 25px;
+    left: 25px;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    #center {
-        width: 80vmin;
-        height: 80vmin;
-    }
-    #clock {
-        font-size: 60px;
-    }
+  #center {
+    width: 80vmin;
+    height: 80vmin;
+  }
+  #clock {
+    font-size: 60px;
+  }
 }
-
-
