@@ -136,6 +136,18 @@ body {
   text-align: center;
 }
 
+#city {
+  font-weight: 600;
+}
+
+#fahrenheit {
+  opacity: 0.44;
+}
+
+.unit {
+  cursor: pointer;
+}
+
 /* responsiveness */
 @media screen and (max-width: 1000px) {
   .weather-data {
