@@ -10,13 +10,6 @@
     <script defer src="weathers.js"></script>
   </head>
   <body>
-    <div id="weather-control">
-      <span class="weather-data" id="city">--</span>
-      <span id="unit-selection">
-        <span class="weather-data unit" id="celsius">C°</span>
-        <span class="weather-data unit" id="fahrenheit">F°</span>
-      </span>
-    </div>
     <div id="center">
       <div class="sky" id="sky-day"></div>
       <div class="sky" id="sky-night"></div>
@@ -28,6 +21,13 @@
       <h1 id="clock">00:00</h1>
     </div>
     <div id="weather-info">
+      <div id="weather-control">
+      <span class="weather-data" id="city">--</span>
+      <span id="unit-selection">
+        <span class="weather-data unit" id="celsius">C°</span>
+        <span class="weather-data unit" id="fahrenheit">F°</span>
+      </span>
+      </div>
       <div class="weather-data" id="week-weather">-- / -- / -- / --</div>
       <div id="today-weather">
         <div class="weather-data" id="date">DATE: --</div>

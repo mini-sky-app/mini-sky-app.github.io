@@ -82,7 +82,9 @@ function setWeatherData(unit, changed) {
       weatherData.todayClouds / 100,
       parseInt(weatherData.todayWindSpeed) / 30
     );
-    spawnClouds();
+    if(!changed){
+      spawnClouds();
+    }
     setSunTimes(weatherData.todaySunrise, weatherData.todaySunset);
     setMist(1 - weatherData.todayVisibility / 10000);
     setPrecipitation(weatherData.todayPrecipitation);
