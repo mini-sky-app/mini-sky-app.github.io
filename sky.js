@@ -123,7 +123,13 @@ function calculateSunAngle() {
   let now = new Date();
   let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   let time = now - startOfDay;
-  angle = (time - sunrise) / (sunset - sunrise) * Math.PI - Math.PI / 2;
+  if(time > sunrise && time < sunset) {
+    angle = (time - sunrise) / (sunset - sunrise) * Math.PI - Math.PI / 2;
+  } else if (time > sunset) {
+    angle = (time - sunset) / (24 * 60 * 60 * 1000 - (sunset - sunrise)) * Math.PI + Math.PI / 2;
+  } else {
+    angle = (24 * 60 * 60 * 1000 - (sunset - time)) / (24 * 60 * 60 * 1000 - (sunset - sunrise)) * Math.PI + Math.PI / 2;
+  }
 
   setSunAngle(angle);
 }
