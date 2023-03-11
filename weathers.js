@@ -76,7 +76,7 @@ function getWeatherData() {
   });
 }
 
-function setWeatherData(unit, changed) {
+function setWeatherData(tempUnit, changed) {
   getWeatherData().then((weatherData) => {
     setClouds(
       weatherData.todayClouds / 100,
@@ -97,7 +97,7 @@ function setWeatherData(unit, changed) {
       let newSpan = document.createElement("span");
       let eachDayName = weekWeatherDataKeys[eachDay];
       let eachDayTemperature = weatherData.weekWeatherData[eachDayName];
-      if (changed == 1 && unit == "F") {
+      if (changed == 1 && tempUnit == "F") {
         eachDayTemperature = (1.8 * eachDayTemperature + 32).toFixed(0);
       }
       let weatherValue = `${eachDayName.toUpperCase()} ${eachDayTemperature}°`;
@@ -112,9 +112,14 @@ function setWeatherData(unit, changed) {
     }
 
     let todayTemperature = weatherData.todayTemp;
+	let todayWindSpeed = parseFloat(weatherData.todayWindSpeed.split(" ")[0]);
+	todayWindSpeed = (todayWindSpeed * 3.6).toFixed(0); //mps to kmph
+	let speedUnit = "kph";
 
-    if (changed == 1 && unit == "F") {
+    if (changed == 1 && tempUnit == "F") {
       todayTemperature = (1.8 * todayTemperature + 32).toFixed(0);
+	  todayWindSpeed = (todayWindSpeed * 0.62).toFixed(0);
+	  speedUnit = "mph";
     }
 
     document.querySelector(
@@ -122,10 +127,10 @@ function setWeatherData(unit, changed) {
     ).innerHTML = `DATE: ${weatherData.todayDate}`;
     document.querySelector(
       "#temperature"
-    ).innerHTML = `TEMPERATURE: ${todayTemperature}°${unit}`;
+    ).innerHTML = `TEMPERATURE: ${todayTemperature}°${tempUnit}`;
     document.querySelector(
       "#wind-speed"
-    ).innerHTML = `WIND SPEED: ${weatherData.todayWindSpeed}`;
+    ).innerHTML = `WIND SPEED: ${todayWindSpeed} ${speedUnit}`;
     document.querySelector(
       "#clouds"
     ).innerHTML = `CLOUD COVER: ${weatherData.todayClouds}%`;
